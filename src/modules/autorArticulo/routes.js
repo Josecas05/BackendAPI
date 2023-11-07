@@ -6,6 +6,7 @@ const controller = require('./index');
 const router = express.Router();
 //rutas 
 router.get('/',findAll);
+router.get('/:startDate/:endDate', findAllDate);
 router.get('/:idAutor/:idArticulo',find);
 router.post('/',add);
 
@@ -14,6 +15,15 @@ router.post('/',add);
 async function findAll (req, res, next){
     try{
     const items = await controller.findAll();
+    answer.success(req,res,items,200);
+    }catch(error){
+        next(error);
+    }
+};
+
+async function  findAllDate(req, res, next){
+    try{
+    const items = await controller.findAllDate(req.params.startDate,req.params.endDate);
     answer.success(req,res,items,200);
     }catch(error){
         next(error);

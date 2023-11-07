@@ -39,11 +39,45 @@ function insert(table,data){
       });
 }
 
+function findAllDate(table, fields, startDate, endDate) {
+    return new Promise((resolve, reject) => {
+      if (!fields || fields.length === 0) {
+        return reject('Debes proporcionar al menos un campo para seleccionar.');
+      }
+      
+      let dateFilter = '';  
+      if (startDate && endDate) {
+        dateFilter = `WHERE ${table}.fecha BETWEEN '${startDate}' AND '${endDate}'`;
+      }
+      
+      const fieldList = fields.map((field) => {
+        if (field === 'idAutor') {
+          return 'autor.nombre AS nombreAutor';
+        } else if (field === 'idArticulo') {
+          return 'articulo.titulo AS tituloArticulo';
+        } else {
+          return `${table}.${field}`;
+        }
+      }).join(', ');
+  
+      const query = `SELECT ${fieldList}
+                     FROM ${table}
+                     LEFT JOIN autor ON ${table}.idAutor = autor.id
+                     LEFT JOIN articulo ON ${table}.idArticulo = articulo.id
+                     ${dateFilter}`; 
+  
+      connection.query(query, (error, result) => {
+        return error ? reject(error) : resolve(result);
+      });
+    });
+  }
+
 
 
 
 module.exports = {
     findAll,
     find,
-    insert
+    insert,
+    findAllDate
 }
