@@ -32,9 +32,9 @@ async function  find (req, res, next){
 async function  add (req, res, next){
     try{
     const items = await controller.add(req.body);
-    if(req.body.id == 0){
+    
         message = 'Autor Articulo Articulo agregado con exito';
-    }
+    
     answer.success(req,res,message,201);
     }catch(error){
         next(error);

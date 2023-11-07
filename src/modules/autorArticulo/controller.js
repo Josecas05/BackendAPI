@@ -14,7 +14,7 @@ module.exports= function (dataBase){
    }
    
    function add(body){
-       return db.add(TABLE, body);
+       return db.insert(TABLE, body);
    }
 
    return {

@@ -40,14 +40,10 @@ function insert(table,data){
 }
 
 
-function add(table,data){
-    if(data && data.id == 0){
-        return insert(table,data);
-    }   
-}
+
 
 module.exports = {
     findAll,
     find,
-    add
+    insert
 }
