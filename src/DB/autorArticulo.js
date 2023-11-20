@@ -20,7 +20,7 @@ function findAll(table, fields) {
       })
       .join(", ");
 
-    const query = `SELECT ${fieldList}, DATE_FORMAT(${table}.fecha, '%Y-%m-%d') AS fecha
+    const query = `SELECT idArticulo,${fieldList}, DATE_FORMAT(${table}.fecha, '%Y-%m-%d') AS fecha
                      FROM ${table}
                      LEFT JOIN autor ON ${table}.idAutor = autor.id
                      LEFT JOIN articulo ON ${table}.idArticulo = articulo.id`;
@@ -97,10 +97,28 @@ function findAllDate(table, fields, startDate, endDate) {
     });
   });
 }
+function delate(table,idArticulo, fields) {
+  return new Promise((resolve, reject) => {
+    if (!fields || fields.length === 0) {
+      return reject("Debes proporcionar al menos un campo para seleccionar.");
+    }
+    const fieldList = fields.join(", ");
+    connection.query(
+      `DELETE FROM ${table} 
+        WHERE ${table}.idArticulo = ${idArticulo};`,
+      (error, result) => {
+        return error ? reject(error) : resolve(result);
+      }
+    );
+  });
+}
+
+
 
 module.exports = {
   findAll,
   find,
   insert,
   findAllDate,
+  delate
 };

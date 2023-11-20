@@ -6,7 +6,7 @@ const cors = require("cors");
 const app= express();
 
 const corsOptions = {
-    origin: "http://localhost:3000", // Cambiar esto a la URL  aplicación React
+    origin: "http://localhost:5173", // Cambiar esto a la URL  aplicación React
     optionsSuccessStatus: 200,
 };
 

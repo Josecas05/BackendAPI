@@ -20,11 +20,15 @@ module.exports = function (dataBase) {
   function add(body) {
     return db.insert(TABLE, body);
   }
+  function delate(idArticulo) {
+    return db.delate(TABLE, idArticulo, FIELDS);
+  }
 
   return {
     findAll,
     find,
     add,
-    findAllDate
+    findAllDate,
+    delate
   };
 };

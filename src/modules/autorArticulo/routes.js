@@ -9,6 +9,7 @@ router.get('/',findAll);
 router.get('/:startDate/:endDate', findAllDate);
 router.get('/:idAutor/:idArticulo',find);
 router.post('/',add);
+router.get('/:idArticulo',delate);
 
 //funciones 
 
@@ -46,6 +47,14 @@ async function  add (req, res, next){
         message = 'Autor Articulo Articulo agregado con exito';
     
     answer.success(req,res,message,201);
+    }catch(error){
+        next(error);
+    }
+};
+async function  delate (req, res, next){
+    try{
+    const items = await controller.delate(req.params.idArticulo);
+    answer.success(req,res,items,200);
     }catch(error){
         next(error);
     }
