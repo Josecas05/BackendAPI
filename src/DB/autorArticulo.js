@@ -86,7 +86,7 @@ function findAllDate(table, fields, startDate, endDate) {
       })
       .join(", ");
 
-    const query = `SELECT ${fieldList}
+    const query = `SELECT idAutor ,idArticulo,${fieldList} 
                      FROM ${table}
                      LEFT JOIN autor ON ${table}.idAutor = autor.id
                      LEFT JOIN articulo ON ${table}.idArticulo = articulo.id
